@@ -15,11 +15,11 @@ open class Query : GraphQLRootResolver {
     lateinit var orderRepository: OrderRepository
 
     open fun order(orderId: String?): Order? {
-        return if (orderId != null) orderRepository.orders[orderId] else orderRepository.orders.values.first()
+        return if (orderId != null) orderRepository.orderMap[orderId] else orderRepository.orderMap.values.first()
     }
 
     open fun orderItem(orderItemId: String?): OrderItem? {
-        return orderRepository.orders.values.flatMap { it.orderItems.filter { it.orderItemId == orderItemId }  }.firstOrNull()
+        return orderRepository.orderMap.values.flatMap { it.orderItems.filter { it.orderItemId == orderItemId }  }.firstOrNull()
     }
 
     open fun cancellations(orderItemId: String?): List<Cancellation>? {
